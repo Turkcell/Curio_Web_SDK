@@ -56,7 +56,6 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
     var authenticate = function() {
         var xhr = createCORSRequest(curio.endpoints.auth.requestType, curio.endpoints.auth.address + '?apiKey=' + this.apiKey);
         if (xhr != null) {
-            xhr.send();
             xhr.onload = function() {
                 try {
                     var response = JSON.parse(xhr.responseText);
@@ -73,6 +72,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
                 curio.ready = true;
                 return true;
             };
+            xhr.send();
         }
     }();
 
@@ -115,24 +115,19 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             callback(false);
             return false;
         }
-        xhr.send();
         xhr.onload = function() {
-            if(xhr.status == 200) {
-                try {
-                    var response = JSON.parse(xhr.responseText);
-                    curio.sessionCode = response.data.sessionCode;
-                    curio.hitCode = response.data.hitCode;
-                } catch (ex) {
-                    callback(xhr.responseText);
-                    return false;
-                }
-                callback(response);
-                return true;
-            } else {
-                callback(false);
-                return true;
+            try {
+                var response = JSON.parse(xhr.responseText);
+                curio.sessionCode = response.data.sessionCode;
+                curio.hitCode = response.data.hitCode;
+            } catch (ex) {
+                callback(xhr.responseText);
+                return false;
             }
-        }
+            callback(response);
+            return true;
+        };
+        xhr.send();
     };
 
     curio.endVisit = function(requestObject, callback) {
@@ -160,24 +155,19 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             callback(false);
             return false;
         }
-        xhr.send();
         xhr.onload = function() {
             curio.hitCode = '';
             curio.sessionCode = '';
-            if(xhr.status == 200) {
-                try {
-                    var response = JSON.parse(xhr.responseText);
-                } catch (ex) {
-                    callback(xhr.responseText);
-                    return false;
-                }
-                callback(response);
-                return true;
-            } else {
-                callback(false);
-                return true;
+            try {
+                var response = JSON.parse(xhr.responseText);
+            } catch (ex) {
+                callback(xhr.responseText);
+                return false;
             }
-        }
+            callback(response);
+            return true;
+        };
+        xhr.send();
     };
 
     curio.newEvent = function(requestObject, callback) {
@@ -212,22 +202,17 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             callback(false);
             return false;
         }
-        xhr.send();
         xhr.onload = function() {
-            if(xhr.status == 200) {
-                try {
-                    var response = JSON.parse(xhr.responseText);
-                } catch (ex) {
-                    callback(xhr.responseText);
-                    return false;
-                }
-                callback(response);
-                return true;
-            } else {
-                callback(false);
-                return true;
+            try {
+                var response = JSON.parse(xhr.responseText);
+            } catch (ex) {
+                callback(xhr.responseText);
+                return false;
             }
-        }
+            callback(response);
+            return true;
+        };
+        xhr.send();
     };
 
     curio.newHit = function(requestObject, callback) {
@@ -268,23 +253,18 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             callback(false);
             return false;
         }
-        xhr.send();
         xhr.onload = function() {
-            if(xhr.status == 200) {
-                try {
-                    var response = JSON.parse(xhr.responseText);
-                    curio.hitCode = response.data.hitCode;
-                } catch (ex) {
-                    callback(xhr.responseText);
-                    return false;
-                }
-                callback(response);
-                return true;
-            } else {
-                callback(false);
-                return true;
+            try {
+                var response = JSON.parse(xhr.responseText);
+                curio.hitCode = response.data.hitCode;
+            } catch (ex) {
+                callback(xhr.responseText);
+                return false;
             }
-        }
+            callback(response);
+            return true;
+        };
+        xhr.send();
     };
 
     curio.endHit = function(requestObject, callback) {
@@ -317,23 +297,18 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             callback(false);
             return false;
         }
-        xhr.send();
         xhr.onload = function() {
-            if(xhr.status == 200) {
-                curio.hitCode = '';
-                try {
-                    var response = JSON.parse(xhr.responseText);
-                } catch (ex) {
-                    callback(xhr.responseText);
-                    return false;
-                }
-                callback(response);
-                return true;
-            } else {
-                callback(false);
-                return true;
+            curio.hitCode = '';
+            try {
+                var response = JSON.parse(xhr.responseText);
+            } catch (ex) {
+                callback(xhr.responseText);
+                return false;
             }
-        }
+            callback(response);
+            return true;
+        };
+        xhr.send();
     };
 
     return curio;
