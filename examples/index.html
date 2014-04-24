@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Turkcell Curio Web SDK Example">
+    <meta name="author" content="Enes Korukcu">
+
+    <title>Turkcell Curio Web SDK Example</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="fonts/stylesheet.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="navbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand brandname" href="#">Turkcell Curio Web SDK Example</a>
+        </div>
+    </div>
+</div>
+<hr/>
+
+<div class="container">
+    <div class="requestWrap">
+        <h3>New Visit Example</h3>
+        <button class="btn btn-lg btn-success actionButton newVisitButton">Create New Visit</button>
+        <div class="newVisitStatus requestStatus"></div>
+    </div>
+    <hr/>
+    <div class="requestWrap">
+        <h3>End Visit Example</h3>
+        <button class="btn btn-lg btn-success actionButton endVisitButton">End Visit</button>
+        <div class="endVisitStatus requestStatus"></div>
+    </div>
+    <hr/>
+    <div class="requestWrap">
+        <h3>New Event Example</h3>
+        <button class="btn btn-lg btn-success actionButton newEventButton">New Event</button>
+        <div class="newEventStatus requestStatus"></div>
+    </div>
+    <hr/>
+    <div class="requestWrap">
+        <h3>New Hit Example</h3>
+        <button class="btn btn-lg btn-success actionButton newHitButton">Create New Hit</button>
+        <div class="newHitStatus requestStatus"></div>
+    </div>
+    <hr/>
+    <div class="requestWrap">
+        <h3>End Hit Example</h3>
+        <button class="btn btn-lg btn-success actionButton endHitButton">End Hit</button>
+        <div class="endHitStatus requestStatus"></div>
+    </div>
+    <hr/>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var trackingCode = 'YOUR_TRACKING_CODE';
+    var apiKey = 'YOUR_API_KEY';
+    var visitorCode = Math.random();
+    var temp = (function() {
+        var curio = document.createElement('script'); curio.type = 'text/javascript'; curio.async = false;
+        curio.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'ttech.8digits.com/js/curio.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(curio, s);
+    })();
+
+    /**
+     * CONTENTS
+     * There is five endpoints.
+     * Curio js sdk will try to get auth token at initialization time with your apiKey.
+     * Sdk will load asynchronously, so it will not block your other scripts.
+     * You can use these examples when curio.js finishes loading.
+     * 1) New Visit
+     * 2) End Visit
+     * 3) New Event
+     * 4) New Hit
+     * 5) End Hit
+     */
+
+    /**
+     * Example Usage: New Visit
+     */
+    var exampleNewVisit = function() {
+
+        $('.newVisitStatus').html('Creating New Visit ..');
+
+        /**
+         * Required Parameters
+         * pageTitle, path
+         *
+         * Optional Parameters
+         * hitCode, sessionCode, userAgent
+         */
+        var requestObject = {
+            pageTitle: 'Example Page', // required
+            path: '/examplepath', // required
+            hitCode: '', // optional
+            sessionCode: '', // optional
+            userAgent: '' // optional
+        };
+
+        /**
+         * Handling New Visit Response
+         */
+        Curio.newVisit(requestObject, function(response) {
+            if(!response) {
+                $('.newVisitStatus').html('Error While Creating New Visit ..');
+                return false;
+            }
+            if(typeof response != "object") {
+                return false;
+            }
+            $('.newVisitStatus').html(JSON.stringify(response));
+            // Response is yours
+        });
+    };
+
+    /**
+     * Example Usage: End Visit
+     */
+    var exampleEndVisit = function() {
+
+        $('.endVisitStatus').html('Ending Visit ..');
+
+        /**
+         * Required Parameters
+         * sessionCode
+         *
+         * Optional Parameters
+         * there is no optional parameters
+         */
+        var requestObject = {
+            sessionCode: Curio.sessionCode // required
+        };
+
+        /**
+         * Handling End Visit Response
+         */
+        Curio.endVisit(requestObject, function(response) {
+            if(!response) {
+                $('.endVisitStatus').html('Error While Ending Visit ..');
+                return false;
+            }
+            if(typeof response != "object") {
+                return false;
+            }
+            $('.endVisitStatus').html(JSON.stringify(response));
+            // Response is yours
+        });
+    };
+
+    /**
+     * Example Usage: New Event
+     */
+    var exampleNewEvent = function() {
+
+        $('.newEventStatus').html('Creating New Event ..');
+
+        /**
+         * Required Parameters
+         * key, value
+         *
+         * Optional Parameters
+         * sessionCode, hitCode
+         */
+        var requestObject = {
+            key: 'exampleKey', // required
+            value: 'exampleValue', // required
+            sessionCode: '', // optional
+            hitCode: '' // optional
+        };
+
+        /**
+         * Handling New Event Response
+         */
+        Curio.newEvent(requestObject, function(response) {
+            if(!response) {
+                $('.newEventStatus').html('Error While Creating New Event ..');
+                return false;
+            }
+            if(typeof response != "object") {
+                return false;
+            }
+            $('.newEventStatus').html(JSON.stringify(response));
+            // Response is yours
+        });
+    };
+
+    /**
+     * Example Usage: New Hit
+     */
+    var exampleNewHit = function() {
+
+        $('.newHitStatus').html('Creating New Hit ..');
+
+        /**
+         * Required Parameters
+         * sessionCode, path, pageTitle
+         *
+         * Optional Parameters
+         * there is no optional parameters
+         */
+        var requestObject = {
+            sessionCode: Curio.sessionCode, // required
+            path: '/examplePath', // required
+            pageTitle: 'Example Page Title' // required
+        };
+
+        /**
+         * Handling New Hit Response
+         */
+        Curio.newHit(requestObject, function(response) {
+            if(!response) {
+                $('.newHitStatus').html('Error While Creating New Hit ..');
+                return false;
+            }
+            if(typeof response != "object") {
+                return false;
+            }
+            $('.newHitStatus').html(JSON.stringify(response));
+            // Response is yours
+        });
+    };
+
+    /**
+     * Example Usage: End Hit
+     */
+    var exampleEndHit = function() {
+
+        $('.endHitStatus').html('Ending Hit ..');
+
+        /**
+         * Required Parameters
+         * sessionCode, hitCode
+         *
+         * Optional Parameters
+         * there is no optional parameters
+         */
+        var requestObject = {
+            sessionCode: Curio.sessionCode, // required
+            hitCode: Curio.hitCode // required
+        };
+
+        /**
+         * Handling End Hit Response
+         */
+        Curio.endHit(requestObject, function(response) {
+            if(!response) {
+                $('.endHitStatus').html('Error While Ending Hit ..');
+                return false;
+            }
+            if(typeof response != "object") {
+                return false;
+            }
+            $('.endHitStatus').html(JSON.stringify(response));
+            // Response is yours
+        });
+    };
+
+    /**
+     * Button - Function Assignments
+     */
+    $('.newVisitButton').click(function() {
+        exampleNewVisit();
+    });
+    $('.endVisitButton').click(function() {
+        exampleEndVisit();
+    });
+    $('.newEventButton').click(function() {
+        exampleNewEvent();
+    });
+    $('.newHitButton').click(function() {
+        exampleNewHit();
+    });
+    $('.endHitButton').click(function() {
+        exampleEndHit();
+    });
+
+</script>
+</body>
+</html>

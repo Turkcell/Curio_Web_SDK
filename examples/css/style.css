@@ -1,0 +1,23 @@
+* {
+    font-family: "turkcell_saturamedium";
+    font-size: 16px;
+}
+.brandname {
+    font-size: 32px;
+    margin-top:2px;
+    line-height: 32px;
+}
+a {
+    color: #000;
+}
+.navbar {
+    padding-top: 20px;
+    margin-bottom: 0;
+    padding-bottom: 20px;
+}
+hr {
+    margin-bottom: 0;
+}
+.requestStatus {
+    margin-top:20px;
+}
