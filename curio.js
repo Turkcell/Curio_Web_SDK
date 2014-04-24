@@ -1,13 +1,13 @@
 var Curio = (function (apiKey, trackingCode, visitorCode) {
     var curio = {
-        ready: false,
-        authToken: "",
-        visitorCode: visitorCode,
-        apiKey: apiKey,
-        trackingCode: trackingCode,
-        sessionCode: "",
-        hitCode: "",
-        serverUrl: document.location.protocol + "//ttech.8digits.com/api/"
+        "ready": false,
+        "authToken": "",
+        "visitorCode": visitorCode,
+        "apiKey": apiKey,
+        "trackingCode": trackingCode,
+        "sessionCode": "",
+        "hitCode": "",
+        "serverUrl": document.location.protocol + "//ttech.8digits.com/api/"
     };
     curio.endpoints = {
         "auth": {
