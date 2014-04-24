@@ -7,7 +7,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
         trackingCode: trackingCode,
         sessionCode: '',
         hitCode: '',
-        serverUrl: document.location.protocol + 'ttech.8digits.com/api/'
+        serverUrl: document.location.protocol + '//ttech.8digits.com/api/'
     };
     curio.endpoints = {
         auth: {
