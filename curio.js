@@ -1,43 +1,43 @@
 var Curio = (function (apiKey, trackingCode, visitorCode) {
     var curio = {
         ready: false,
-        authToken: '',
+        authToken: "",
         visitorCode: visitorCode,
         apiKey: apiKey,
         trackingCode: trackingCode,
-        sessionCode: '',
-        hitCode: '',
-        serverUrl: document.location.protocol + '//ttech.8digits.com/api/'
+        sessionCode: "",
+        hitCode: "",
+        serverUrl: document.location.protocol + "//ttech.8digits.com/api/"
     };
     curio.endpoints = {
-        auth: {
-            requestType: "POST",
-            address: curio.serverUrl + 'auth'
+        "auth": {
+            "requestType": "POST",
+            "address": curio.serverUrl + "auth"
         },
-        visit: {
-            new: {
-                requestType: "POST",
-                address: curio.serverUrl + 'visit/create'
+        "visit": {
+            "new": {
+                "requestType": "POST",
+                "address": curio.serverUrl + "visit/create"
             },
-            end: {
-                requestType: "POST",
-                address: curio.serverUrl + 'visit/end'
+            "end": {
+                "requestType": "POST",
+                "address": curio.serverUrl + "visit/end"
             }
         },
-        event: {
-            new: {
-                requestType: "POST",
-                address: curio.serverUrl + 'event/create'
+        "event": {
+            "new": {
+                "requestType": "POST",
+                "address": curio.serverUrl + "event/create"
             }
         },
-        hit: {
-            new: {
-                requestType: "POST",
-                address: curio.serverUrl + 'hit/create'
+        "hit": {
+            "new": {
+                "requestType": "POST",
+                "address": curio.serverUrl + "hit/create"
             },
-            end: {
-                requestType: "POST",
-                address: curio.serverUrl + 'hit/end'
+            "end": {
+                "requestType": "POST",
+                "address": curio.serverUrl + "hit/end"
             }
         }
     };
