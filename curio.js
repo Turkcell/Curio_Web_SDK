@@ -15,7 +15,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             "address": curio.serverUrl + "auth"
         },
         "visit": {
-            "new": {
+            "create": {
                 "requestType": "POST",
                 "address": curio.serverUrl + "visit/create"
             },
@@ -25,13 +25,13 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             }
         },
         "event": {
-            "new": {
+            "create": {
                 "requestType": "POST",
                 "address": curio.serverUrl + "event/create"
             }
         },
         "hit": {
-            "new": {
+            "create": {
                 "requestType": "POST",
                 "address": curio.serverUrl + "hit/create"
             },
@@ -96,7 +96,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             callback(false);
             return false;
         }
-        var url = curio.endpoints.visit.new.address;
+        var url = curio.endpoints.visit.create.address;
         url = url + '?authToken=' + curio.authToken + '&trackingCode=' + curio.trackingCode;
         url = url + '&visitorCode=' + curio.visitorCode;
         url = url + '&pageTitle=' + requestObject.pageTitle;
@@ -110,7 +110,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
         if(requestObject.userAgent != undefined && typeof requestObject.userAgent == "string" && requestObject.userAgent.length > 0) {
             url = url + '&userAgent=' + requestObject.userAgent;
         }
-        var xhr = createCORSRequest(curio.endpoints.visit.new.requestType, url);
+        var xhr = createCORSRequest(curio.endpoints.visit.create.requestType, url);
         if(xhr == null) {
             callback(false);
             return false;
@@ -192,7 +192,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             callback(false);
             return false;
         }
-        var url = curio.endpoints.event.new.address;
+        var url = curio.endpoints.event.create.address;
         url = url + '?authToken=' + curio.authToken + '&trackingCode=' + curio.trackingCode;
         url = url + '&visitorCode=' + curio.visitorCode;
         if(requestObject.sessionCode != undefined && typeof requestObject.sessionCode == "string" && requestObject.sessionCode.length > 0) {
@@ -207,7 +207,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
         if(requestObject.value != undefined && typeof requestObject.value == "string" && requestObject.value.length > 0) {
             url = url + '&value=' + requestObject.value;
         }
-        var xhr = createCORSRequest(curio.endpoints.event.new.requestType, url);
+        var xhr = createCORSRequest(curio.endpoints.event.create.requestType, url);
         if(xhr == null) {
             callback(false);
             return false;
@@ -254,7 +254,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             callback(false);
             return false;
         }
-        var url = curio.endpoints.hit.new.address;
+        var url = curio.endpoints.hit.create.address;
         url = url + '?authToken=' + curio.authToken + '&trackingCode=' + curio.trackingCode;
         url = url + '&visitorCode=' + curio.visitorCode;
         url = url + '&sessionCode=' + requestObject.sessionCode;
@@ -263,7 +263,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
         if(requestObject.hitCode != undefined && typeof requestObject.hitCode == "string" && requestObject.hitCode.length > 0) {
             url = url + '&hitCode=' + requestObject.hitCode;
         }
-        var xhr = createCORSRequest(curio.endpoints.hit.new.requestType, url);
+        var xhr = createCORSRequest(curio.endpoints.hit.create.requestType, url);
         if(xhr == null) {
             callback(false);
             return false;
