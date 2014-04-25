@@ -57,6 +57,7 @@ Opsiyonel Parametler
 Örnek Kullanım
 --------------
 Curio.newVisit fonksiyonuna yolladığınız callback fonksiyonunuza response pas edilir.
+
 Http işlemi başarısız ise response, false dönecektir.
 Http işlemi başarılı ise server'dan alınan response size pas edilecektir.
 Server json objesi yollamış ise response'un içeriği json object olacaktır, json objesi gelmemiş ise response'un içeriği server'ın yolladığı text olacaktır.
@@ -298,5 +299,5 @@ Version
 
 License
 ----
-GNU GENERAL PUBLIC LICENSE
+GPL
 
