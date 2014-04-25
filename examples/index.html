@@ -91,10 +91,10 @@
      * Sdk will load asynchronously, so it will not block your other scripts.
      * You can use these examples when curio.js finishes loading.
      * 1) New Visit
-     * 2) End Visit
+     * 2) New Hit
      * 3) New Event
-     * 4) New Hit
-     * 5) End Hit
+     * 4) End Hit
+     * 5) End Visit
      */
 
     /**
@@ -136,35 +136,37 @@
     };
 
     /**
-     * Example Usage: End Visit
+     * Example Usage: New Hit
      */
-    var exampleEndVisit = function() {
+    var exampleNewHit = function() {
 
-        $('.endVisitStatus').html('Ending Visit ..');
+        $('.newHitStatus').html('Creating New Hit ..');
 
         /**
          * Required Parameters
-         * sessionCode
+         * sessionCode, path, pageTitle
          *
          * Optional Parameters
          * there is no optional parameters
          */
         var requestObject = {
-            sessionCode: Curio.sessionCode // required
+            sessionCode: Curio.sessionCode, // required
+            path: '/examplePath', // required
+            pageTitle: 'Example Page Title' // required
         };
 
         /**
-         * Handling End Visit Response
+         * Handling New Hit Response
          */
-        Curio.endVisit(requestObject, function(response) {
+        Curio.newHit(requestObject, function(response) {
             if(!response) {
-                $('.endVisitStatus').html('Error While Ending Visit ..');
+                $('.newHitStatus').html('Error While Creating New Hit ..');
                 return false;
             }
             if(typeof response != "object") {
                 return false;
             }
-            $('.endVisitStatus').html(JSON.stringify(response));
+            $('.newHitStatus').html(JSON.stringify(response));
             // Response is yours
         });
     };
@@ -207,42 +209,6 @@
     };
 
     /**
-     * Example Usage: New Hit
-     */
-    var exampleNewHit = function() {
-
-        $('.newHitStatus').html('Creating New Hit ..');
-
-        /**
-         * Required Parameters
-         * sessionCode, path, pageTitle
-         *
-         * Optional Parameters
-         * there is no optional parameters
-         */
-        var requestObject = {
-            sessionCode: Curio.sessionCode, // required
-            path: '/examplePath', // required
-            pageTitle: 'Example Page Title' // required
-        };
-
-        /**
-         * Handling New Hit Response
-         */
-        Curio.newHit(requestObject, function(response) {
-            if(!response) {
-                $('.newHitStatus').html('Error While Creating New Hit ..');
-                return false;
-            }
-            if(typeof response != "object") {
-                return false;
-            }
-            $('.newHitStatus').html(JSON.stringify(response));
-            // Response is yours
-        });
-    };
-
-    /**
      * Example Usage: End Hit
      */
     var exampleEndHit = function() {
@@ -276,6 +242,41 @@
             // Response is yours
         });
     };
+
+    /**
+     * Example Usage: End Visit
+     */
+    var exampleEndVisit = function() {
+
+        $('.endVisitStatus').html('Ending Visit ..');
+
+        /**
+         * Required Parameters
+         * sessionCode
+         *
+         * Optional Parameters
+         * there is no optional parameters
+         */
+        var requestObject = {
+            sessionCode: Curio.sessionCode // required
+        };
+
+        /**
+         * Handling End Visit Response
+         */
+        Curio.endVisit(requestObject, function(response) {
+            if(!response) {
+                $('.endVisitStatus').html('Error While Ending Visit ..');
+                return false;
+            }
+            if(typeof response != "object") {
+                return false;
+            }
+            $('.endVisitStatus').html(JSON.stringify(response));
+            // Response is yours
+        });
+    };
+
 
     /**
      * Button - Function Assignments
