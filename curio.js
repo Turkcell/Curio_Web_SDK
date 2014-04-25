@@ -88,19 +88,15 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             callback(false);
             return false;
         }
-        if(requestObject.pageTitle === undefined || typeof requestObject.pageTitle != "string" || requestObject.pageTitle.length < 1) {
-            callback(false);
-            return false;
-        }
-        if(requestObject.path === undefined || typeof requestObject.path != "string" || requestObject.path.length < 1) {
-            callback(false);
-            return false;
-        }
         var url = curio.endpoints.visit.create.address;
         url = url + '?authToken=' + curio.authToken + '&trackingCode=' + curio.trackingCode;
         url = url + '&visitorCode=' + curio.visitorCode;
-        url = url + '&pageTitle=' + requestObject.pageTitle;
-        url = url + '&path=' + requestObject.path;
+        if(requestObject.pageTitle != undefined && typeof requestObject.pageTitle == "string" && requestObject.pageTitle.length > 0) {
+            url = url + '&pageTitle=' + requestObject.pageTitle;
+        }
+        if(requestObject.path != undefined && typeof requestObject.path == "string" && requestObject.path.length > 0) {
+            url = url + '&path=' + requestObject.path;
+        }
         if(requestObject.hitCode != undefined && typeof requestObject.hitCode == "string" && requestObject.hitCode.length > 0) {
             url = url + '&hitCode=' + requestObject.hitCode;
         }
