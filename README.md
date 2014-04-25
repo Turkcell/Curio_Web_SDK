@@ -298,5 +298,5 @@ Version
 
 License
 ----
-Apache
+GNU GENERAL PUBLIC LICENSE
 
