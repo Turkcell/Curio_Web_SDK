@@ -46,10 +46,11 @@ Turkcell Curio'yu size sağlanan 5 adet fonksiyon ile kullanabilirsiniz.
 Yeni Ziyaret (New Visit)
 --------------
 Zorunlu Parametreler
-  - pageTitle
-  - path
+  - Zorunlu parametre yoktur.
 
 Opsiyonel Parametler
+  - pageTitle
+  - path
   - hitCode
   - sessionCode
   - userAgent
@@ -71,14 +72,14 @@ Server json objesi yollamış ise response'un içeriği json object olacaktır, 
 
         /**
          * Required Parameters
-         * pageTitle, path
+         * there is no required parameters
          *
          * Optional Parameters
-         * hitCode, sessionCode, userAgent
+         * pageTitle, path, hitCode, sessionCode, userAgent
          */
         var requestObject = {
-            pageTitle: 'Example Page', // required
-            path: '/examplepath', // required
+            pageTitle: 'Example Page', // optional
+            path: '/examplepath', // optional
             hitCode: '', // optional
             sessionCode: '', // optional
             userAgent: '' // optional
