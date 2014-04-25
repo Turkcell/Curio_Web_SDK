@@ -37,10 +37,10 @@ API
 --------------
 Turkcell Curio'yu size sağlanan 5 adet fonksiyon ile kullanabilirsiniz.
   - Yeni Ziyaret (New Visit)
-  - Ziyareti Bitir (End Visit)
-  - Yeni Etkileşim (New Event)
   - Yeni Sayfa (New Hit)
+  - Yeni Etkileşim (New Event)
   - Sayfa Çıkış (End Hit)
+  - Ziyareti Bitir (End Visit)
 
 <br />
 Yeni Ziyaret (New Visit)
@@ -93,17 +93,19 @@ Server json objesi yollamış ise response'un içeriği json object olacaktır, 
 
 ```
 
-Ziyareti Bitir (End Visit)
+Yeni Sayfa (New Hit)
 --------------
 Zorunlu Parametreler
   - sessionCode
+  - path
+  - pageTitle
 
 Opsiyonel Parametler
   - Opsiyonel parametre yoktur.
 
 Örnek Kullanım
 --------------
-Curio.endVisit fonksiyonuna yolladığınız callback fonksiyonunuza response pas edilir.
+Curio.newHit fonksiyonuna yolladığınız callback fonksiyonunuza response pas edilir.
 
 Http işlemi başarısız ise response, false dönecektir.
 Http işlemi başarılı ise server'dan alınan response size pas edilecektir.
@@ -112,22 +114,27 @@ Server json objesi yollamış ise response'un içeriği json object olacaktır, 
 ```sh
 
     /**
-     * Example Usage: End Visit
+     * Example Usage: New Hit
      */
-    var exampleEndVisit = function() {
+    var exampleNewHit = function() {
 
         /**
          * Required Parameters
-         * sessionCode
+         * sessionCode, path, pageTitle
          *
          * Optional Parameters
          * there is no optional parameters
          */
         var requestObject = {
-            sessionCode: Curio.sessionCode // required
+            sessionCode: Curio.sessionCode, // required
+            path: '/examplePath', // required
+            pageTitle: 'Example Page Title' // required
         };
 
-        Curio.endVisit(requestObject, function(response) {
+        /**
+         * Handling New Hit Response
+         */
+        Curio.newHit(requestObject, function(response) {
             if(!response) {
                 return false;
             }
@@ -189,63 +196,10 @@ Server json objesi yollamış ise response'un içeriği json object olacaktır, 
 
 ```
 
-Yeni Sayfa (New Hit)
---------------
-Zorunlu Parametreler
-  - sessionCode
-  - path
-  - pageTitle
-
-Opsiyonel Parametler
-  - Opsiyonel parametre yoktur.
-
-Örnek Kullanım
---------------
-Curio.newHit fonksiyonuna yolladığınız callback fonksiyonunuza response pas edilir.
-
-Http işlemi başarısız ise response, false dönecektir.
-Http işlemi başarılı ise server'dan alınan response size pas edilecektir.
-Server json objesi yollamış ise response'un içeriği json object olacaktır, json objesi gelmemiş ise response'un içeriği server'ın yolladığı text olacaktır.
-
-```sh
-
-    /**
-     * Example Usage: New Hit
-     */
-    var exampleNewHit = function() {
-
-        /**
-         * Required Parameters
-         * sessionCode, path, pageTitle
-         *
-         * Optional Parameters
-         * there is no optional parameters
-         */
-        var requestObject = {
-            sessionCode: Curio.sessionCode, // required
-            path: '/examplePath', // required
-            pageTitle: 'Example Page Title' // required
-        };
-
-        /**
-         * Handling New Hit Response
-         */
-        Curio.newHit(requestObject, function(response) {
-            if(!response) {
-                return false;
-            }
-            // Response is yours
-        });
-    };
-
-```
-
 Sayfa Çıkış (End Hit)
 --------------
 Zorunlu Parametreler
-  - sessionCode
-  - path
-  - pageTitle
+  - hitCode
 
 Opsiyonel Parametler
   - Opsiyonel parametre yoktur.
@@ -289,6 +243,51 @@ Server json objesi yollamış ise response'un içeriği json object olacaktır, 
     };
 
 ```
+
+Ziyareti Bitir (End Visit)
+--------------
+Zorunlu Parametreler
+  - sessionCode
+
+Opsiyonel Parametler
+  - Opsiyonel parametre yoktur.
+
+Örnek Kullanım
+--------------
+Curio.endVisit fonksiyonuna yolladığınız callback fonksiyonunuza response pas edilir.
+
+Http işlemi başarısız ise response, false dönecektir.
+Http işlemi başarılı ise server'dan alınan response size pas edilecektir.
+Server json objesi yollamış ise response'un içeriği json object olacaktır, json objesi gelmemiş ise response'un içeriği server'ın yolladığı text olacaktır.
+
+```sh
+
+    /**
+     * Example Usage: End Visit
+     */
+    var exampleEndVisit = function() {
+
+        /**
+         * Required Parameters
+         * sessionCode
+         *
+         * Optional Parameters
+         * there is no optional parameters
+         */
+        var requestObject = {
+            sessionCode: Curio.sessionCode // required
+        };
+
+        Curio.endVisit(requestObject, function(response) {
+            if(!response) {
+                return false;
+            }
+            // Response is yours
+        });
+    };
+
+```
+
 Dependencies
 ----
 None
