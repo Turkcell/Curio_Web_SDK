@@ -46,13 +46,13 @@ Turkcell Curio'yu size sağlanan 5 adet fonksiyon ile kullanabilirsiniz.
 Yeni Ziyaret (New Visit)
 --------------
 Zorunlu Parametreler
-  - Page Title
-  - Path
+  - pageTitle
+  - path
 
 Opsiyonel Parametler
-  - Hit Code
-  - Session Code
-  - User Agent
+  - hitCode
+  - sessionCode
+  - userAgent
 
 Örnek Kullanım
 --------------
