@@ -76,9 +76,12 @@
     var apiKey = 'YOUR_API_KEY';
     var visitorCode = Math.random();
     (function() {
-        var curio = document.createElement('script'); curio.type = 'text/javascript'; curio.async = false;
+        var curio = document.createElement('script');
+        curio.type = 'text/javascript';
+        curio.async = false;
         curio.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'ttech.8digits.com/js/curio.min.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(curio, s);
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(curio, s);
     })();
 
     /**
@@ -103,14 +106,14 @@
 
         /**
          * Required Parameters
-         * pageTitle, path
+         * there is no required parameter
          *
          * Optional Parameters
-         * hitCode, sessionCode, userAgent
+         * pageTitle, path, hitCode, sessionCode, userAgent
          */
         var requestObject = {
-            pageTitle: 'Example Page', // required
-            path: '/examplepath', // required
+            pageTitle: 'Example Page', // optional
+            path: '/examplepath', // optional
             hitCode: '', // optional
             sessionCode: '', // optional
             userAgent: '' // optional
