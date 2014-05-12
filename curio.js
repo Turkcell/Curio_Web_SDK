@@ -1,4 +1,13 @@
 var Curio = (function (apiKey, trackingCode, visitorCode) {
+    var getCookie = function (cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    };
     var curio = {
         "ready": false,
         "authToken": "",
@@ -9,6 +18,9 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
         "hitCode": "",
         "serverUrl": document.location.protocol + "//ttech.8digits.com/api/"
     };
+    if(getCookie("curioSessionCode").length > 0) {
+        curio.sessionCode = getCookie("curioSessionCode");
+    }
     curio.endpoints = {
         "auth": {
             "requestType": "POST",
@@ -115,6 +127,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             try {
                 var response = JSON.parse(xhr.responseText);
                 curio.sessionCode = response.data.sessionCode;
+                document.cookie = "curioSessionCode=" + curio.sessionCode;
                 curio.hitCode = response.data.hitCode;
             } catch (ex) {
                 callback(xhr.responseText);
