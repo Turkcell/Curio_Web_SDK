@@ -1,4 +1,4 @@
-var Curio = (function (apiKey, trackingCode, visitorCode) {
+var Curio = (function (apiKey, trackingCode) {
     var getCookie = function (cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
@@ -8,16 +8,33 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
         }
         return "";
     };
+    var setCookie = function(key, value, expire) {
+        document.cookie = key + "=" + value + "; expires=" + expire;
+    };
+    var delCookie = function(key) {
+        document.cookie = key + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    };
+    var createCookieExpireDate = function() {
+        var date = new Date();
+        date.setFullYear(date.getFullYear()+2);
+        return date;
+    };
     var curio = {
         "ready": false,
         "authToken": "",
-        "visitorCode": visitorCode,
+        "visitorCode": "",
         "apiKey": apiKey,
         "trackingCode": trackingCode,
         "sessionCode": "",
         "hitCode": "",
         "serverUrl": document.location.protocol + "//ttech.8digits.com/api/"
     };
+    if(getCookie("curioVisitorCode").length > 0) {
+        setCookie('curioVisitorCode', getCookie('curioVisitorCode'), createCookieExpireDate());
+        curio.visitorCode = getCookie("curioVisitorCode");
+    } else {
+        setCookie('curioVisitorCode', Math.random(), createCookieExpireDate());
+    }
     if(getCookie("curioSessionCode").length > 0) {
         curio.sessionCode = getCookie("curioSessionCode");
     }
@@ -127,8 +144,8 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
             try {
                 var response = JSON.parse(xhr.responseText);
                 curio.sessionCode = response.data.sessionCode;
-                document.cookie = "curioSessionCode=" + curio.sessionCode;
                 curio.hitCode = response.data.hitCode;
+                setCookie('curioSessionCode', curio.sessionCode, createCookieExpireDate());
             } catch (ex) {
                 callback(xhr.responseText);
                 return false;
@@ -167,6 +184,7 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
         xhr.onload = function() {
             curio.hitCode = '';
             curio.sessionCode = '';
+            delCookie('curioSessionCode');
             try {
                 var response = JSON.parse(xhr.responseText);
             } catch (ex) {
@@ -322,4 +340,4 @@ var Curio = (function (apiKey, trackingCode, visitorCode) {
 
     return curio;
 
-})(apiKey, trackingCode, visitorCode);
+})(apiKey, trackingCode);
