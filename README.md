@@ -13,7 +13,6 @@ Sitenize ekleyin
 ```sh
     var trackingCode = 'TRACKING_CODE';
     var apiKey = 'API_KEY';
-    var visitorCode = Math.random();
     (function() {
         var curio = document.createElement('script');
         curio.type = 'text/javascript';
