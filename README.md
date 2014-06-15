@@ -13,14 +13,7 @@ Sitenize ekleyin
 ```sh
     var trackingCode = 'TRACKING_CODE';
     var apiKey = 'API_KEY';
-    (function() {
-        var curio = document.createElement('script');
-        curio.type = 'text/javascript';
-        curio.async = false;
-        curio.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'ttech.8digits.com/js/curio.min.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(curio, s);
-    })();
+    <script src="//ttech.8digits.com/js/curio.min.js"></script>
 ```
 
 Kullanımı
