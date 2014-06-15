@@ -11,8 +11,10 @@ Sitenize ekleyin
   
 
 ```sh
-    var trackingCode = 'TRACKING_CODE';
-    var apiKey = 'API_KEY';
+    <script type="text/javascript">
+        var trackingCode = 'TRACKING_CODE';
+        var apiKey = 'API_KEY';
+    </script>
     <script src="//ttech.8digits.com/js/curio.min.js"></script>
 ```
 
