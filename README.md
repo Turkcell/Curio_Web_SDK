@@ -1,7 +1,7 @@
-Turkcell Curio Web SDK
+Turkcell Curio Web SDK (Yeni)
 =========
 
->Turkcell Curio ile kullanıcılarınızın web sitenizdeki hareketlerini gözlemleyebilirsiniz.
+> Turkcell Curio ile kullanıcılarınızın web sitenizdeki hareketlerini gözlemleyebilirsiniz.
 
 Sitenize ekleyin
 --------------
@@ -11,11 +11,10 @@ Sitenize ekleyin
   
 
 ```sh
-    <script type="text/javascript">
-        var trackingCode = 'TRACKING_CODE';
-        var apiKey = 'API_KEY';
+    <script src="https://curio.turkcell.com.tr/api/js/curio-2.0.0.js"></script>
+    <script type='text/javascript'>
+    	Curio.init("API_KEY", "TRACKING_CODE");
     </script>
-    <script src="//ttech.8digits.com/js/curio.min.js"></script>
 ```
 
 Kullanımı
@@ -39,249 +38,58 @@ Turkcell Curio'yu size sağlanan 5 adet fonksiyon ile kullanabilirsiniz.
 <br />
 Yeni Ziyaret (New Visit)
 --------------
-Zorunlu Parametreler
-  - Zorunlu parametre yoktur.
+**Curio için sayfanıza eklediğiniz JavaScript kodu (Curio.init) ile yeni ziyaret yaratılacaktır. Sizin yeni bir ziyaret yaratmak için herhangi bir şey yapmanıza gerek yoktur.**  
 
-Opsiyonel Parametler
-  - pageTitle
-  - path
-  - hitCode
-  - sessionCode
-  - userAgent
-
-Örnek Kullanım
---------------
-Curio.newVisit fonksiyonuna yolladığınız callback fonksiyonunuza response pas edilir.
-
-Http işlemi başarısız ise response, false dönecektir.
-Http işlemi başarılı ise server'dan alınan response size pas edilecektir.
-Server json objesi yollamış ise response'un içeriği json object olacaktır, json objesi gelmemiş ise response'un içeriği server'ın yolladığı text olacaktır.
-
-```sh
-
-    /**
-     * Example Usage: New Visit
-     */
-    var exampleNewVisit = function() {
-
-        /**
-         * Required Parameters
-         * there is no required parameters
-         *
-         * Optional Parameters
-         * pageTitle, path, hitCode, sessionCode, userAgent
-         */
-        var requestObject = {
-            pageTitle: 'Example Page', // optional
-            path: '/examplepath', // optional
-            hitCode: '', // optional
-            sessionCode: '', // optional
-            userAgent: '' // optional
-        };
-        Curio.newVisit(requestObject, function(response) {
-            if(!response) {
-                return false;
-            }
-            // Response is yours
-        });
-    };
-
-```
+Yeni ziyaret yaratıldıktan sonra sunucudan gelen gelen parametreler kendiliğinden Curio.clientData nesnesine yazılacaktır. Sizin response ile ilgili bir şey yapmanıza gerek yoktur. Sunucu hatası, bağlantı hatası vb. sebeplerden ötürü yeni ziyaret yaratılamadığı zaman Curio'ya yapılacak her istek öncesi yeni ziyaret oluşturma denemesi yapılacaktır.
 
 Yeni Sayfa (New Hit)
 --------------
 Zorunlu Parametreler
-  - sessionCode
-  - path
   - pageTitle
-
-Opsiyonel Parametler
-  - Opsiyonel parametre yoktur.
+  - path
 
 Örnek Kullanım
 --------------
-Curio.newHit fonksiyonuna yolladığınız callback fonksiyonunuza response pas edilir.
-
-Http işlemi başarısız ise response, false dönecektir.
-Http işlemi başarılı ise server'dan alınan response size pas edilecektir.
-Server json objesi yollamış ise response'un içeriği json object olacaktır, json objesi gelmemiş ise response'un içeriği server'ın yolladığı text olacaktır.
+Curio.hitCreate() fonksiyonunu kullanarak çağırım yapabilirsiniz. 
 
 ```sh
-
-    /**
-     * Example Usage: New Hit
-     */
-    var exampleNewHit = function() {
-
-        /**
-         * Required Parameters
-         * sessionCode, path, pageTitle
-         *
-         * Optional Parameters
-         * there is no optional parameters
-         */
-        var requestObject = {
-            sessionCode: Curio.sessionCode, // required
-            path: '/examplePath', // required
-            pageTitle: 'Example Page Title' // required
-        };
-
-        /**
-         * Handling New Hit Response
-         */
-        Curio.newHit(requestObject, function(response) {
-            if(!response) {
-                return false;
-            }
-            // Response is yours
-        });
-    };
+    Curio.hitCreate({pageTitle: "Page Title", path: "Page URL"});
 
 ```
 
 Yeni Etkileşim (New Event)
 --------------
 Zorunlu Parametreler
-  - key
-
-Opsiyonel Parametler
-  - value
-  - sessionCode
-  - hitCode
+  - eventKey
+  - eventValue
 
 Örnek Kullanım
 --------------
-Curio.newEvent fonksiyonuna yolladığınız callback fonksiyonunuza response pas edilir.
-
-Http işlemi başarısız ise response, false dönecektir.
-Http işlemi başarılı ise server'dan alınan response size pas edilecektir.
-Server json objesi yollamış ise response'un içeriği json object olacaktır, json objesi gelmemiş ise response'un içeriği server'ın yolladığı text olacaktır.
+Curio.eventCreate() fonksiyonunu kullanarak çağırım yapabilirsiniz. 
 
 ```sh
-
-    /**
-     * Example Usage: New Event
-     */
-    var exampleNewEvent = function() {
-
-        /**
-         * Required Parameters
-         * key
-         *
-         * Optional Parameters
-         * value, sessionCode, hitCode
-         */
-        var requestObject = {
-            key: 'exampleKey', // required
-            value: 'exampleValue', // optional
-            sessionCode: '', // optional
-            hitCode: '' // optional
-        };
-
-        /**
-         * Handling New Event Response
-         */
-        Curio.newEvent(requestObject, function(response) {
-            if(!response) {
-                return false;
-            }
-            // Response is yours
-        });
-    };
+    Curio.eventCreate({eventKey: "Event Key", eventValue: "Event Value"});
 
 ```
 
 Sayfa Çıkış (End Hit)
 --------------
 Zorunlu Parametreler
-  - hitCode
-
-Opsiyonel Parametler
-  - Opsiyonel parametre yoktur.
+  - pageTitle
+  - path
 
 Örnek Kullanım
 --------------
-Curio.newHit fonksiyonuna yolladığınız callback fonksiyonunuza response pas edilir.
-
-Http işlemi başarısız ise response, false dönecektir.
-Http işlemi başarılı ise server'dan alınan response size pas edilecektir.
-Server json objesi yollamış ise response'un içeriği json object olacaktır, json objesi gelmemiş ise response'un içeriği server'ın yolladığı text olacaktır.
+Curio.hitEnd() fonksiyonunu kullanarak çağırım yapabilirsiniz. 
 
 ```sh
-
-    /**
-     * Example Usage: End Hit
-     */
-    var exampleEndHit = function() {
-
-        /**
-         * Required Parameters
-         * sessionCode, hitCode
-         *
-         * Optional Parameters
-         * there is no optional parameters
-         */
-        var requestObject = {
-            sessionCode: Curio.sessionCode, // required
-            hitCode: Curio.hitCode // required
-        };
-
-        /**
-         * Handling End Hit Response
-         */
-        Curio.endHit(requestObject, function(response) {
-            if(!response) {
-                return false;
-            }
-            // Response is yours
-        });
-    };
+    Curio.hitEnd({pageTitle: "Page Title", path: "Page URL"});
 
 ```
 
 Ziyareti Bitir (End Visit)
 --------------
-Zorunlu Parametreler
-  - sessionCode
-
-Opsiyonel Parametler
-  - Opsiyonel parametre yoktur.
-
-Örnek Kullanım
---------------
-Curio.endVisit fonksiyonuna yolladığınız callback fonksiyonunuza response pas edilir.
-
-Http işlemi başarısız ise response, false dönecektir.
-Http işlemi başarılı ise server'dan alınan response size pas edilecektir.
-Server json objesi yollamış ise response'un içeriği json object olacaktır, json objesi gelmemiş ise response'un içeriği server'ın yolladığı text olacaktır.
-
-```sh
-
-    /**
-     * Example Usage: End Visit
-     */
-    var exampleEndVisit = function() {
-
-        /**
-         * Required Parameters
-         * sessionCode
-         *
-         * Optional Parameters
-         * there is no optional parameters
-         */
-        var requestObject = {
-            sessionCode: Curio.sessionCode // required
-        };
-
-        Curio.endVisit(requestObject, function(response) {
-            if(!response) {
-                return false;
-            }
-            // Response is yours
-        });
-    };
-
-```
+**Sayfa kapatıldığı zaman ziyaret kendiğilinden sonlanacaktır. Sizin ziyareti bitirmek için herhangi bir şey yapmanıza gerek yoktur.**
 
 Dependencies
 ----
@@ -289,7 +97,7 @@ None
 
 Version
 ----
-0.1
+0.2
 
 License
 ----
