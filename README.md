@@ -1,14 +1,14 @@
-Turkcell Curio Web SDK (Yeni)
+Turkcell Curio Web SDK (New)
 =========
 
-> Turkcell Curio ile kullanıcılarınızın web sitenizdeki hareketlerini gözlemleyebilirsiniz.
+> Curio is Turkcell's mobile analytics system, and this is Curio's javascript library for tracking web sites. 
 
-Sitenize ekleyin
+
+Add to your Site
 --------------
-  - https://gui-curio.turkcell.com.tr adresinden uygulamanızı oluşturun.
-  - Aşagıdaki kodu web sayfanıza ekleyiniz.
-  - Oluşturdugunuz uygulamanın TRACKING_CODE ve API_KEY değerlerini aşagıdaki koda yerleştirin.
-  
+  - Create your application using https://curioweb.turkcell.com.tr  
+  - Add below code to your web page. 
+  - Replace TRACKING_CODE and API_KEY values of your application with the code below.
 
 ```sh
     <script src="https://curio.turkcell.com.tr/api/js/curio-2.0.0.js"></script>
@@ -17,79 +17,79 @@ Sitenize ekleyin
     </script>
 ```
 
-Kullanımı
+Usage
 --------------
-Kullanıcıların hareketlerini gözlemlemek için kaydetmek istediğiniz kullanıcı etkileşimlerini Turkcell Curio'ya göndermelisiniz.
+Send user interactions which you want to analyze to Curio Turkcell. 
 <br />
-Yukarıdaki kodu sitenize ekledikten sonra, bu kodun size sağladığı API ile Turkcell Curio'ya bilgi gönderimi yapabilirsiniz.
+After adding above code to your site, you can send information to Turkcell Curio by using Curio javascript API. 
 <br />
-Bu bilgiler yeni bir sayfa açılması, web sitenizdeki bir elemente tıklanması veya bulunulan sayfanın terk edilmesi gibi hareketleri içerebilir.
+Those information can be: visiting a page, clicking on any element at your page, or leaving from visited pages.
 <br />
 
 API
 --------------
-Turkcell Curio'yu size sağlanan 5 adet fonksiyon ile kullanabilirsiniz.
-  - Yeni Ziyaret (New Visit)
-  - Yeni Sayfa (New Hit)
-  - Yeni Etkileşim (New Event)
-  - Sayfa Çıkış (End Hit)
-  - Ziyareti Bitir (End Visit)
+You can use Turkcell Curio, with 5 provided functions: 
+  - New Visit (New Session)
+  - New Hit (New Page)
+  - New Event 
+  - End Hit (Exit Page)
+  - End Visit (End Session)
 
 <br />
-Yeni Ziyaret (New Visit)
+New Visit
 --------------
-**Curio için sayfanıza eklediğiniz JavaScript kodu (Curio.init) ile yeni ziyaret yaratılacaktır. Sizin yeni bir ziyaret yaratmak için herhangi bir şey yapmanıza gerek yoktur.**  
+**The above Javascript which you have added to your page for Curio, will call new visit by (Curio.init) function. You don't have to call any function for creating a new visit.**
 
-Yeni ziyaret yaratıldıktan sonra sunucudan gelen gelen parametreler kendiliğinden Curio.clientData nesnesine yazılacaktır. Sizin response ile ilgili bir şey yapmanıza gerek yoktur. Sunucu hatası, bağlantı hatası vb. sebeplerden ötürü yeni ziyaret yaratılamadığı zaman Curio'ya yapılacak her istek öncesi yeni ziyaret oluşturma denemesi yapılacaktır.
+After new visit is created, the response parameters will be set to Curio.clientData object automatically. You don't have to do extra operation for processing response object. If new visit could not be created because of server error, connection error,.. etc, before sending any new request to Curio, new visit create attempts will be made. 
 
-Yeni Sayfa (New Hit)
+New Hit
 --------------
-Zorunlu Parametreler
+Required Parameters
   - pageTitle
   - path
 
-Örnek Kullanım
+Example:
 --------------
-Curio.hitCreate() fonksiyonunu kullanarak çağırım yapabilirsiniz. 
+You can call Curio.hitCreate() function such as:
 
 ```sh
     Curio.hitCreate({pageTitle: "Page Title", path: "Page URL"});
 
 ```
 
-Yeni Etkileşim (New Event)
+New Event
 --------------
-Zorunlu Parametreler
+Required Parameters
   - eventKey
   - eventValue
 
-Örnek Kullanım
+Example:
 --------------
-Curio.eventCreate() fonksiyonunu kullanarak çağırım yapabilirsiniz. 
+You can call Curio.eventCreate() function such as:
 
 ```sh
     Curio.eventCreate({eventKey: "Event Key", eventValue: "Event Value"});
 
 ```
 
-Sayfa Çıkış (End Hit)
+End Hit
 --------------
-Zorunlu Parametreler
+Required Parameters
   - pageTitle
   - path
 
-Örnek Kullanım
+Example:
 --------------
-Curio.hitEnd() fonksiyonunu kullanarak çağırım yapabilirsiniz. 
+You can call Curio.hitEnd() function such as: 
 
 ```sh
     Curio.hitEnd({pageTitle: "Page Title", path: "Page URL"});
 
 ```
 
-Ziyareti Bitir (End Visit)
+End Visit
 --------------
-**Sayfa kapatıldığı zaman ziyaret kendiğilinden sonlanacaktır. Sizin ziyareti bitirmek için herhangi bir şey yapmanıza gerek yoktur.**
+**When the page is closed, visit will be ended automatically. You don't have to call any function for ending visit.**
 
 Dependencies
 ----
@@ -102,4 +102,3 @@ Version
 License
 ----
 GPL
-
